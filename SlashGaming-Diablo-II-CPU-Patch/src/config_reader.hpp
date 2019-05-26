@@ -35,16 +35,16 @@
  *  work.
  */
 
-#include "ingame_sleep.hpp"
+#ifndef SGD2CSP_CONFIG_READER_HPP_
+#define SGD2CSP_CONFIG_READER_HPP_
 
 #include <windows.h>
 
-#include "../config_reader.hpp"
-
 namespace sgd2csp {
 
-void SleepIngame() {
-  Sleep(GetIngameSleepMilliseconds());
-}
+DWORD GetIngameSleepMilliseconds();
+DWORD GetMainMenuSleepMilliseconds();
 
 } // namespace sgd2csp
+
+#endif // SGD2CSP_CONFIG_READER_HPP_
