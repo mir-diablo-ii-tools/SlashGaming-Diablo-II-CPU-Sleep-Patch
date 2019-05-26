@@ -35,35 +35,17 @@
  *  work.
  */
 
-#include "cpu_sleep_patch.hpp"
+#ifndef SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_1_13C_HPP_
+#define SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_1_13C_HPP_
+
+#include <sgd2mapi.hpp>
 
 #include <vector>
 
-#include <sgd2mapi.hpp>
-#include "ingame_sleep_patch/ingame_sleep_patch.hpp"
-#include "main_menu_sleep_patch/main_menu_sleep_patch.hpp"
-
 namespace sgd2csp {
 
-std::vector<mapi::GamePatch> MakeCpuSleepPatches() {
-  std::vector<mapi::GamePatch> patches;
-
-  std::vector ingame_sleep_patches = MakeIngameSleepPatches();
-  std::vector main_menu_sleep_patches = MakeMainMenuSleepPatches();
-
-  patches.insert(
-      patches.end(),
-      std::make_move_iterator(ingame_sleep_patches.begin()),
-      std::make_move_iterator(ingame_sleep_patches.end())
-  );
-
-  patches.insert(
-      patches.end(),
-      std::make_move_iterator(main_menu_sleep_patches.begin()),
-      std::make_move_iterator(main_menu_sleep_patches.end())
-  );
-
-  return patches;
-}
+std::vector<mapi::GamePatch> MakeMainMenuSleepPatches_1_13C();
 
 } // namespace sgd2csp
+
+#endif // SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_1_13C_HPP_

@@ -35,35 +35,16 @@
  *  work.
  */
 
-#include "cpu_sleep_patch.hpp"
+#include "main_menu_sleep.hpp"
 
-#include <vector>
+#include <windows.h>
 
-#include <sgd2mapi.hpp>
-#include "ingame_sleep_patch/ingame_sleep_patch.hpp"
-#include "main_menu_sleep_patch/main_menu_sleep_patch.hpp"
+#include "../config_reader.hpp"
 
 namespace sgd2csp {
 
-std::vector<mapi::GamePatch> MakeCpuSleepPatches() {
-  std::vector<mapi::GamePatch> patches;
-
-  std::vector ingame_sleep_patches = MakeIngameSleepPatches();
-  std::vector main_menu_sleep_patches = MakeMainMenuSleepPatches();
-
-  patches.insert(
-      patches.end(),
-      std::make_move_iterator(ingame_sleep_patches.begin()),
-      std::make_move_iterator(ingame_sleep_patches.end())
-  );
-
-  patches.insert(
-      patches.end(),
-      std::make_move_iterator(main_menu_sleep_patches.begin()),
-      std::make_move_iterator(main_menu_sleep_patches.end())
-  );
-
-  return patches;
+void SleepMainMenu() {
+  Sleep(GetMainMenuSleepMilliseconds());
 }
 
 } // namespace sgd2csp

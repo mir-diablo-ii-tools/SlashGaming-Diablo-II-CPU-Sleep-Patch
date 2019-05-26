@@ -35,33 +35,45 @@
  *  work.
  */
 
-#include "cpu_sleep_patch.hpp"
+#include "main_menu_sleep_patch_1_13c.hpp"
 
-#include <vector>
-
-#include <sgd2mapi.hpp>
-#include "ingame_sleep_patch/ingame_sleep_patch.hpp"
-#include "main_menu_sleep_patch/main_menu_sleep_patch.hpp"
+#include "../asm_x86_macro.h"
+#include "main_menu_sleep.hpp"
 
 namespace sgd2csp {
+namespace {
 
-std::vector<mapi::GamePatch> MakeCpuSleepPatches() {
+__declspec(naked) void InterceptionFunc() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
+
+  ASM_X86(push eax);
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
+
+  ASM_X86(call ASM_X86_FUNC(SleepMainMenu));
+
+  ASM_X86(push edx);
+  ASM_X86(push ecx);
+  ASM_X86(push eax);
+
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+}
+
+std::vector<mapi::GamePatch> MakeMainMenuSleepPatches_1_13C() {
   std::vector<mapi::GamePatch> patches;
 
-  std::vector ingame_sleep_patches = MakeIngameSleepPatches();
-  std::vector main_menu_sleep_patches = MakeMainMenuSleepPatches();
-
-  patches.insert(
-      patches.end(),
-      std::make_move_iterator(ingame_sleep_patches.begin()),
-      std::make_move_iterator(ingame_sleep_patches.end())
+  mapi::GamePatch branch_patch = mapi::GamePatch::MakeGameBackBranchPatch(
+      mapi::GameAddress::FromOffset(mapi::DefaultLibrary::kD2Win, 0x18A5D),
+      mapi::BranchType::kCall,
+      &InterceptionFunc,
+      0x18A6A - 0x18A5D
   );
 
-  patches.insert(
-      patches.end(),
-      std::make_move_iterator(main_menu_sleep_patches.begin()),
-      std::make_move_iterator(main_menu_sleep_patches.end())
-  );
+  patches.push_back(std::move(branch_patch));
 
   return patches;
 }
