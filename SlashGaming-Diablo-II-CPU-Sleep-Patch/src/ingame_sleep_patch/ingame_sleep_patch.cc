@@ -61,7 +61,8 @@ std::vector<mapi::GamePatch> MakeIngameSleepPatches() {
       return MakeIngameSleepPatches_Lod1_14A();
     }
 
-    case d2::GameVersion::kLod1_14B: {
+    case d2::GameVersion::kLod1_14B:
+    case d2::GameVersion::kLod1_14C: {
       return MakeIngameSleepPatches_Lod1_14B();
     }
   }
