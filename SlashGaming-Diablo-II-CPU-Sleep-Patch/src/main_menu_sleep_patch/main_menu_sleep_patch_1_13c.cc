@@ -66,14 +66,14 @@ __declspec(naked) void InterceptionFunc() {
 std::vector<mapi::GamePatch> MakeMainMenuSleepPatches_1_13C() {
   std::vector<mapi::GamePatch> patches;
 
-  mapi::GamePatch branch_patch = mapi::GamePatch::MakeGameBackBranchPatch(
+  mapi::GamePatch back_branch_patch = mapi::GamePatch::MakeGameBackBranchPatch(
       mapi::GameAddress::FromOffset(mapi::DefaultLibrary::kD2Win, 0x18A5D),
       mapi::BranchType::kCall,
       &InterceptionFunc,
       0x18A6A - 0x18A5D
   );
 
-  patches.push_back(std::move(branch_patch));
+  patches.push_back(std::move(back_branch_patch));
 
   return patches;
 }

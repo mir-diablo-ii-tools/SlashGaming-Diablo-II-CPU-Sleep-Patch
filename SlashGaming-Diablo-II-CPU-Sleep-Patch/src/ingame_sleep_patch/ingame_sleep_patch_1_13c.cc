@@ -66,20 +66,14 @@ __declspec(naked) void InterceptionFunc() {
 std::vector<mapi::GamePatch> MakeIngameSleepPatches_1_13C() {
   std::vector<mapi::GamePatch> patches;
 
-  mapi::GamePatch nop_patch = mapi::GamePatch::MakeGameNopPatch(
+  mapi::GamePatch back_branch_patch = mapi::GamePatch::MakeGameBackBranchPatch(
       mapi::GameAddress::FromOffset(mapi::DefaultLibrary::kD2Client, 0x3CB7C),
+      mapi::BranchType::kCall,
+      &InterceptionFunc,
       0x3CB9C - 0x3CB7C
   );
 
-  mapi::GamePatch branch_patch = mapi::GamePatch::MakeGameBranchPatch(
-      mapi::GameAddress::FromOffset(mapi::DefaultLibrary::kD2Client, 0x3CB96),
-      mapi::BranchType::kCall,
-      &InterceptionFunc,
-      sizeof(&InterceptionFunc) + 1
-  );
-
-  patches.push_back(std::move(nop_patch));
-  patches.push_back(std::move(branch_patch));
+  patches.push_back(std::move(back_branch_patch));
 
   return patches;
 }
