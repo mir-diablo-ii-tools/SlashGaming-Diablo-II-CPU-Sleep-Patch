@@ -42,6 +42,8 @@
 #include <sgd2mapi.hpp>
 #include "main_menu_sleep_patch_1_13c.hpp"
 #include "main_menu_sleep_patch_1_13d.hpp"
+#include "main_menu_sleep_patch_lod_1_14a.hpp"
+#include "main_menu_sleep_patch_lod_1_14b.hpp"
 
 namespace sgd2csp {
 
@@ -53,6 +55,14 @@ std::vector<mapi::GamePatch> MakeMainMenuSleepPatches() {
 
     case d2::GameVersion::k1_13D: {
       return MakeMainMenuSleepPatches_1_13D();
+    }
+
+    case d2::GameVersion::kLod1_14A: {
+      return MakeMainMenuSleepPatches_Lod1_14A();
+    }
+
+    case d2::GameVersion::kLod1_14B: {
+      return MakeMainMenuSleepPatches_Lod1_14B();
     }
   }
 }

@@ -35,36 +35,47 @@
  *  work.
  */
 
-#include "ingame_sleep_patch.hpp"
+#include "main_menu_sleep_patch_lod_1_14a.hpp"
 
-#include <vector>
-
-#include <sgd2mapi.hpp>
-#include "ingame_sleep_patch_1_13c.hpp"
-#include "ingame_sleep_patch_1_13d.hpp"
-#include "ingame_sleep_patch_lod_1_14a.hpp"
-#include "ingame_sleep_patch_lod_1_14b.hpp"
+#include "../asm_x86_macro.h"
+#include "main_menu_sleep.hpp"
 
 namespace sgd2csp {
+namespace {
 
-std::vector<mapi::GamePatch> MakeIngameSleepPatches() {
-  switch (d2::GetRunningGameVersionId()) {
-    case d2::GameVersion::k1_13C: {
-      return MakeIngameSleepPatches_1_13C();
-    }
+__declspec(naked) void InterceptionFunc() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
 
-    case d2::GameVersion::k1_13D: {
-      return MakeIngameSleepPatches_1_13D();
-    }
+  ASM_X86(push eax);
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
 
-    case d2::GameVersion::kLod1_14A: {
-      return MakeIngameSleepPatches_Lod1_14A();
-    }
+  ASM_X86(call ASM_X86_FUNC(SleepMainMenu));
 
-    case d2::GameVersion::kLod1_14B: {
-      return MakeIngameSleepPatches_Lod1_14B();
-    }
-  }
+  ASM_X86(push edx);
+  ASM_X86(push ecx);
+  ASM_X86(push eax);
+
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+}
+
+std::vector<mapi::GamePatch> MakeMainMenuSleepPatches_Lod1_14A() {
+  std::vector<mapi::GamePatch> patches;
+
+  mapi::GamePatch back_branch_patch = mapi::GamePatch::MakeGameBackBranchPatch(
+      mapi::GameAddress::FromOffset(mapi::GetGameExecutablePath(), 0x3DABF),
+      mapi::BranchType::kCall,
+      &InterceptionFunc,
+      0x3DADA - 0x3DABF
+  );
+
+  patches.push_back(std::move(back_branch_patch));
+
+  return patches;
 }
 
 } // namespace sgd2csp

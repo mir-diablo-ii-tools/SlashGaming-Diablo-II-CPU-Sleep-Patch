@@ -35,36 +35,17 @@
  *  work.
  */
 
-#include "ingame_sleep_patch.hpp"
+#ifndef SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_LOD_1_14A_HPP_
+#define SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_LOD_1_14A_HPP_
+
+#include <sgd2mapi.hpp>
 
 #include <vector>
 
-#include <sgd2mapi.hpp>
-#include "ingame_sleep_patch_1_13c.hpp"
-#include "ingame_sleep_patch_1_13d.hpp"
-#include "ingame_sleep_patch_lod_1_14a.hpp"
-#include "ingame_sleep_patch_lod_1_14b.hpp"
-
 namespace sgd2csp {
 
-std::vector<mapi::GamePatch> MakeIngameSleepPatches() {
-  switch (d2::GetRunningGameVersionId()) {
-    case d2::GameVersion::k1_13C: {
-      return MakeIngameSleepPatches_1_13C();
-    }
-
-    case d2::GameVersion::k1_13D: {
-      return MakeIngameSleepPatches_1_13D();
-    }
-
-    case d2::GameVersion::kLod1_14A: {
-      return MakeIngameSleepPatches_Lod1_14A();
-    }
-
-    case d2::GameVersion::kLod1_14B: {
-      return MakeIngameSleepPatches_Lod1_14B();
-    }
-  }
-}
+std::vector<mapi::GamePatch> MakeMainMenuSleepPatches_Lod1_14A();
 
 } // namespace sgd2csp
+
+#endif // SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_LOD_1_14A_HPP_
