@@ -41,6 +41,7 @@
 
 #include <sgd2mapi.hpp>
 #include "ingame_sleep_patch_1_00.hpp"
+#include "ingame_sleep_patch_1_01.hpp"
 #include "ingame_sleep_patch_1_13c.hpp"
 #include "ingame_sleep_patch_1_13d.hpp"
 #include "ingame_sleep_patch_lod_1_14a.hpp"
@@ -53,6 +54,10 @@ std::vector<mapi::GamePatch> MakeIngameSleepPatches() {
   switch (d2::GetRunningGameVersionId()) {
     case d2::GameVersion::k1_00: {
       return MakeIngameSleepPatches_1_00();
+    }
+
+    case d2::GameVersion::k1_01: {
+      return MakeIngameSleepPatches_1_01();
     }
 
     case d2::GameVersion::k1_13C: {

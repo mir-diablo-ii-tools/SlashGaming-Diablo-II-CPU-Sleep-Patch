@@ -35,52 +35,17 @@
  *  work.
  */
 
-#include "main_menu_sleep_patch.hpp"
+#ifndef SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_1_01_HPP_
+#define SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_1_01_HPP_
+
+#include <sgd2mapi.hpp>
 
 #include <vector>
 
-#include <sgd2mapi.hpp>
-#include "main_menu_sleep_patch_1_00.hpp"
-#include "main_menu_sleep_patch_1_01.hpp"
-#include "main_menu_sleep_patch_1_13c.hpp"
-#include "main_menu_sleep_patch_1_13d.hpp"
-#include "main_menu_sleep_patch_lod_1_14a.hpp"
-#include "main_menu_sleep_patch_lod_1_14b.hpp"
-#include "main_menu_sleep_patch_lod_1_14d.hpp"
-
 namespace sgd2csp {
 
-std::vector<mapi::GamePatch> MakeMainMenuSleepPatches() {
-  switch (d2::GetRunningGameVersionId()) {
-    case d2::GameVersion::k1_00: {
-      return MakeMainMenuSleepPatches_1_00();
-    }
-
-    case d2::GameVersion::k1_01: {
-      return MakeMainMenuSleepPatches_1_01();
-    }
-
-    case d2::GameVersion::k1_13C: {
-      return MakeMainMenuSleepPatches_1_13C();
-    }
-
-    case d2::GameVersion::k1_13D: {
-      return MakeMainMenuSleepPatches_1_13D();
-    }
-
-    case d2::GameVersion::kLod1_14A: {
-      return MakeMainMenuSleepPatches_Lod1_14A();
-    }
-
-    case d2::GameVersion::kLod1_14B:
-    case d2::GameVersion::kLod1_14C: {
-      return MakeMainMenuSleepPatches_Lod1_14B();
-    }
-
-    case d2::GameVersion::kLod1_14D: {
-      return MakeMainMenuSleepPatches_Lod1_14D();
-    }
-  }
-}
+std::vector<mapi::GamePatch> MakeMainMenuSleepPatches_1_01();
 
 } // namespace sgd2csp
+
+#endif // SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_1_01_HPP_
