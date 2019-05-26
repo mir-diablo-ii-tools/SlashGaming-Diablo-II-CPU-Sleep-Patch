@@ -38,8 +38,6 @@
 #ifndef SGD2CSP_INGAME_SLEEP_PATCH_INGAME_SLEEP_HPP_
 #define SGD2CSP_INGAME_SLEEP_PATCH_INGAME_SLEEP_HPP_
 
-#include <windows.h>
-
 namespace sgd2csp {
 
 extern "C" void SleepIngame();

@@ -40,6 +40,8 @@
 
 #include <sgd2mapi.hpp>
 
+#include <vector>
+
 namespace sgd2csp {
 
 std::vector<mapi::GamePatch> MakeIngameSleepPatches_1_13C();
