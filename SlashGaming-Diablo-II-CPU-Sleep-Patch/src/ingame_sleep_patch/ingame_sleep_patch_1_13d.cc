@@ -35,26 +35,47 @@
  *  work.
  */
 
-#include "ingame_sleep_patch.hpp"
-
-#include <vector>
-
-#include <sgd2mapi.hpp>
-#include "ingame_sleep_patch_1_13c.hpp"
 #include "ingame_sleep_patch_1_13d.hpp"
 
+#include "../asm_x86_macro.h"
+#include "ingame_sleep.hpp"
+
 namespace sgd2csp {
+namespace {
 
-std::vector<mapi::GamePatch> MakeIngameSleepPatches() {
-  switch (d2::GetRunningGameVersionId()) {
-    case d2::GameVersion::k1_13C: {
-      return MakeIngameSleepPatches_1_13C();
-    }
+__declspec(naked) void InterceptionFunc() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
 
-    case d2::GameVersion::k1_13D: {
-      return MakeIngameSleepPatches_1_13D();
-    }
-  }
+  ASM_X86(push eax);
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
+
+  ASM_X86(call ASM_X86_FUNC(SleepIngame));
+
+  ASM_X86(push edx);
+  ASM_X86(push ecx);
+  ASM_X86(push eax);
+
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+}
+
+std::vector<mapi::GamePatch> MakeIngameSleepPatches_1_13D() {
+  std::vector<mapi::GamePatch> patches;
+
+  mapi::GamePatch back_branch_patch = mapi::GamePatch::MakeGameBackBranchPatch(
+      mapi::GameAddress::FromOffset(mapi::DefaultLibrary::kD2Client, 0x2770C),
+      mapi::BranchType::kCall,
+      &InterceptionFunc,
+      0x2772C - 0x2770C
+  );
+
+  patches.push_back(std::move(back_branch_patch));
+
+  return patches;
 }
 
 } // namespace sgd2csp

@@ -41,15 +41,18 @@
 
 #include <sgd2mapi.hpp>
 #include "main_menu_sleep_patch_1_13c.hpp"
+#include "main_menu_sleep_patch_1_13d.hpp"
 
 namespace sgd2csp {
 
 std::vector<mapi::GamePatch> MakeMainMenuSleepPatches() {
-  std::vector<mapi::GamePatch> patches;
-
   switch (d2::GetRunningGameVersionId()) {
     case d2::GameVersion::k1_13C: {
       return MakeMainMenuSleepPatches_1_13C();
+    }
+
+    case d2::GameVersion::k1_13D: {
+      return MakeMainMenuSleepPatches_1_13D();
     }
   }
 }
