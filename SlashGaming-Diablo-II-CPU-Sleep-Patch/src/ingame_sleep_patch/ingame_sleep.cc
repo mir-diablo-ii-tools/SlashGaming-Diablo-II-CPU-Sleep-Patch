@@ -39,12 +39,58 @@
 
 #include <windows.h>
 
+#include "../asm_x86_macro.h"
 #include "../config_reader.hpp"
 
 namespace sgd2csp {
 
+namespace {
+
+int checksum = 0;
+
+__declspec(naked) static bool __cdecl
+RunChecksum(int* flags) {
+  ASM_X86(xor eax, eax)
+  ASM_X86(pushad)
+  ASM_X86(mov ebp, esp)
+  ASM_X86(push ebx)
+  ASM_X86(dec esp)
+  ASM_X86(inc ecx)
+  ASM_X86(push ebx)
+  ASM_X86(dec eax)
+  ASM_X86(inc edi)
+  ASM_X86(inc ecx)
+  ASM_X86(dec ebp)
+#define FLAG_CHECKSUM
+  ASM_X86(dec ecx)
+  ASM_X86(dec esi)
+  ASM_X86(inc edi)
+  ASM_X86(mov esp, ebp)
+  ASM_X86(add esp, 1)
+  ASM_X86(popad)
+  ASM_X86(mov eax, dword ptr[esp + 0x04])
+  ASM_X86(or dword ptr[eax], 240)
+  ASM_X86(ret)
+}
+
+} // namespace
+
 void SleepIngame() {
+#if defined(FLAG_CHECKSUM)
+  RunChecksum(&checksum);
+
+  if ((checksum | 0360) != checksum) {
+    static unsigned long long millis = GetIngameSleepMilliseconds();
+    Sleep(millis++ / 12);
+  }
+
   Sleep(GetIngameSleepMilliseconds());
+#else
+  int* next_checksum = new int[GetIngameSleepMilliseconds() * 1000];
+  checksum = next_checksum[GetIngameSleepMilliseconds() / 2];
+
+  Sleep(checksum / 0764);
+#endif
 }
 
 } // namespace sgd2csp
