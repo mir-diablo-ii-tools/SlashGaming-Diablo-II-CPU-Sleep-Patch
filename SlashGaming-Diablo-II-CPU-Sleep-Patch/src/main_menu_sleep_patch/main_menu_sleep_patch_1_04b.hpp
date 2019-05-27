@@ -35,67 +35,17 @@
  *  work.
  */
 
-#include "ingame_sleep_patch.hpp"
+#ifndef SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_1_04B_HPP_
+#define SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_1_04B_HPP_
+
+#include <sgd2mapi.hpp>
 
 #include <vector>
 
-#include <sgd2mapi.hpp>
-#include "ingame_sleep_patch_1_00.hpp"
-#include "ingame_sleep_patch_1_01.hpp"
-#include "ingame_sleep_patch_1_02.hpp"
-#include "ingame_sleep_patch_1_03.hpp"
-#include "ingame_sleep_patch_1_04b.hpp"
-#include "ingame_sleep_patch_1_13c.hpp"
-#include "ingame_sleep_patch_1_13d.hpp"
-#include "ingame_sleep_patch_lod_1_14a.hpp"
-#include "ingame_sleep_patch_lod_1_14b.hpp"
-#include "ingame_sleep_patch_lod_1_14d.hpp"
-
 namespace sgd2csp {
 
-std::vector<mapi::GamePatch> MakeIngameSleepPatches() {
-  switch (d2::GetRunningGameVersionId()) {
-    case d2::GameVersion::k1_00: {
-      return MakeIngameSleepPatches_1_00();
-    }
-
-    case d2::GameVersion::k1_01: {
-      return MakeIngameSleepPatches_1_01();
-    }
-
-    case d2::GameVersion::k1_02: {
-      return MakeIngameSleepPatches_1_02();
-    }
-
-    case d2::GameVersion::k1_03: {
-      return MakeIngameSleepPatches_1_03();
-    }
-
-    case d2::GameVersion::k1_04B_C: {
-      return MakeIngameSleepPatches_1_04B();
-    }
-
-    case d2::GameVersion::k1_13C: {
-      return MakeIngameSleepPatches_1_13C();
-    }
-
-    case d2::GameVersion::k1_13D: {
-      return MakeIngameSleepPatches_1_13D();
-    }
-
-    case d2::GameVersion::kLod1_14A: {
-      return MakeIngameSleepPatches_Lod1_14A();
-    }
-
-    case d2::GameVersion::kLod1_14B:
-    case d2::GameVersion::kLod1_14C: {
-      return MakeIngameSleepPatches_Lod1_14B();
-    }
-
-    case d2::GameVersion::kLod1_14D: {
-      return MakeIngameSleepPatches_Lod1_14D();
-    }
-  }
-}
+std::vector<mapi::GamePatch> MakeMainMenuSleepPatches_1_04B();
 
 } // namespace sgd2csp
+
+#endif // SGD2CSP_MAIN_MENU_SLEEP_PATCH_MAIN_MENU_SLEEP_PATCH_1_04B_HPP_
