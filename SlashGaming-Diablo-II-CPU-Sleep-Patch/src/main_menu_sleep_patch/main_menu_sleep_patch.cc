@@ -49,6 +49,7 @@
 #include "main_menu_sleep_patch_1_07.hpp"
 #include "main_menu_sleep_patch_1_07_beta.hpp"
 #include "main_menu_sleep_patch_1_08.hpp"
+#include "main_menu_sleep_patch_1_09.hpp"
 #include "main_menu_sleep_patch_1_13c.hpp"
 #include "main_menu_sleep_patch_1_13d.hpp"
 #include "main_menu_sleep_patch_lod_1_14a.hpp"
@@ -96,6 +97,12 @@ std::vector<mapi::GamePatch> MakeMainMenuSleepPatches() {
 
     case d2::GameVersion::k1_08: {
       return MakeMainMenuSleepPatches_1_08();
+    }
+
+    case d2::GameVersion::k1_09:
+    case d2::GameVersion::k1_09B:
+    case d2::GameVersion::k1_09D: {
+      return MakeMainMenuSleepPatches_1_09();
     }
 
     case d2::GameVersion::k1_13C: {
