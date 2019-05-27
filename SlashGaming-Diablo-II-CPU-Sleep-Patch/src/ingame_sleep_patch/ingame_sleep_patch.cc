@@ -102,7 +102,8 @@ std::vector<mapi::GamePatch> MakeIngameSleepPatches() {
       return MakeIngameSleepPatches_1_09();
     }
 
-    case d2::GameVersion::k1_10Beta: {
+    case d2::GameVersion::k1_10Beta:
+    case d2::GameVersion::k1_10SBeta: {
       return MakeIngameSleepPatches_1_10Beta();
     }
 
