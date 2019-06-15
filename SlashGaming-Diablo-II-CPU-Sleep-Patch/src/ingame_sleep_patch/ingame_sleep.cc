@@ -40,7 +40,7 @@
 #include <windows.h>
 
 #include "../asm_x86_macro.h"
-#include "../config_reader.hpp"
+#include "../config.hpp"
 
 namespace sgd2csp {
 
