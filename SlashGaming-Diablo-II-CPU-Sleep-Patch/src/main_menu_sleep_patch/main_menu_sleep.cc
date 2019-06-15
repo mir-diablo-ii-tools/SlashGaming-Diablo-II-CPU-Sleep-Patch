@@ -46,7 +46,6 @@
 #include "main_menu_sleep.hpp"
 
 #include <windows.h>
-
 #include <thread>
 
 #include "../asm_x86_macro.h"
