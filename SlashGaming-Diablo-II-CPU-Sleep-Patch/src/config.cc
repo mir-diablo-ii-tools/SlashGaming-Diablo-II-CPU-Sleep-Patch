@@ -83,7 +83,7 @@ constexpr int kMinorVersionBValue = 0;
 constexpr std::string_view kIngameSleepTimeKey = u8"Ingame Sleep Time (ms)";
 constexpr DWORD kDefaultIngameSleepTime = 10;
 constexpr std::string_view kMainMenuSleepTimeKey = u8"Main Menu Sleep Time (ms)";
-constexpr DWORD kDefaultMainMenuSleepTime = 10;
+constexpr DWORD kDefaultMainMenuSleepTime = 2;
 
 std::map<std::string_view, std::once_flag> once_flags_by_json_keys;
 
