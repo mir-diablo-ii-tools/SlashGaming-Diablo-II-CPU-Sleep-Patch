@@ -48,6 +48,8 @@
 
 #include <windows.h>
 
+#include "dllexport_define.inc"
+
 namespace sgd2csp {
 
 DWORD GetIngameSleepMilliseconds();
@@ -55,4 +57,7 @@ DWORD GetMainMenuSleepMilliseconds();
 
 } // namespace sgd2csp
 
+extern "C" DLLEXPORT bool SGBH_RefreshConfig();
+
+#include "dllexport_undefine.inc"
 #endif // SGD2CSP_CONFIG_READER_HPP_

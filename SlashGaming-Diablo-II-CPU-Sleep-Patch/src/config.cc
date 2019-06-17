@@ -362,3 +362,10 @@ DWORD GetMainMenuSleepMilliseconds() {
 }
 
 } // namespace sgd2csp
+
+bool SGBH_RefreshConfig() {
+  sgd2csp::GetConfigReader() = sgd2csp::ReadConfig(sgd2csp::GetConfigPath());
+  sgd2csp::once_flags_by_json_keys.clear();
+
+  return true;
+}
