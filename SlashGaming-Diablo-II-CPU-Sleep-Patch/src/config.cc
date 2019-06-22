@@ -261,11 +261,11 @@ bool AddMissingConfigEntries(
   }
 
   if (!config_reader.HasUnsignedLong(kMainEntryKey, kMainMenuSleepTimeKey)
-      || config_reader.GetUnsignedLong(kMainEntryKey, kIngameSleepTimeKey) == INFINITE) {
+      || config_reader.GetUnsignedLong(kMainEntryKey, kMainMenuSleepTimeKey) == INFINITE) {
     config_reader.SetDeepUnsignedLong(
         kDefaultMainMenuSleepTime,
         kMainEntryKey,
-        kIngameSleepTimeKey
+        kMainMenuSleepTimeKey
     );
   }
 
