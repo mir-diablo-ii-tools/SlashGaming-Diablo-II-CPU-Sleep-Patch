@@ -82,8 +82,15 @@ constexpr int kMinorVersionBValue = 0;
 // Sleep time variables.
 constexpr std::string_view kIngameSleepTimeKey = u8"Ingame Sleep Time (ms)";
 constexpr DWORD kDefaultIngameSleepTime = 10;
-constexpr std::string_view kMainMenuSleepTimeKey = u8"Main Menu Sleep Time (ms)";
+constexpr std::string_view kInactiveIngameSleepTimeKey =
+    u8"Inactive Ingame Sleep Time (ms)";
+constexpr DWORD kDefaultInactiveIngameSleepTime = 100;
+constexpr std::string_view kMainMenuSleepTimeKey =
+    u8"Main Menu Sleep Time (ms)";
 constexpr DWORD kDefaultMainMenuSleepTime = 2;
+constexpr std::string_view kInactiveMainMenuSleepTimeKey =
+    u8"Inactive Main Menu Sleep Time (ms)";
+constexpr DWORD kDefaultInactiveMainMenuSleepTime = 100;
 
 std::map<std::string, std::once_flag> once_flags_by_json_keys;
 
@@ -260,12 +267,30 @@ bool AddMissingConfigEntries(
     );
   }
 
+  if (!config_reader.HasUnsignedLong(kMainEntryKey, kInactiveIngameSleepTimeKey)
+      || config_reader.GetUnsignedLong(kMainEntryKey, kInactiveIngameSleepTimeKey) == INFINITE) {
+    config_reader.SetDeepUnsignedLong(
+        kDefaultInactiveIngameSleepTime,
+        kMainEntryKey,
+        kInactiveIngameSleepTimeKey
+    );
+  }
+
   if (!config_reader.HasUnsignedLong(kMainEntryKey, kMainMenuSleepTimeKey)
       || config_reader.GetUnsignedLong(kMainEntryKey, kMainMenuSleepTimeKey) == INFINITE) {
     config_reader.SetDeepUnsignedLong(
         kDefaultMainMenuSleepTime,
         kMainEntryKey,
         kMainMenuSleepTimeKey
+    );
+  }
+
+  if (!config_reader.HasUnsignedLong(kMainEntryKey, kInactiveMainMenuSleepTimeKey)
+      || config_reader.GetUnsignedLong(kMainEntryKey, kInactiveMainMenuSleepTimeKey) == INFINITE) {
+    config_reader.SetDeepUnsignedLong(
+        kDefaultInactiveMainMenuSleepTime,
+        kMainEntryKey,
+        kInactiveMainMenuSleepTimeKey
     );
   }
 
@@ -345,6 +370,23 @@ DWORD GetIngameSleepMilliseconds() {
   return ingame_sleep_milliseconds;
 }
 
+DWORD GetInactiveIngameSleepMilliseconds() {
+  static DWORD inactive_ingame_sleep_milliseconds;
+
+  std::call_once(
+      GetOnceFlag(kMainEntryKey, kIngameSleepTimeKey),
+      [=] () {
+        inactive_ingame_sleep_milliseconds = GetConfigReader()
+            .GetUnsignedLong(
+                kMainEntryKey,
+                kInactiveIngameSleepTimeKey
+            );
+      }
+  );
+
+  return inactive_ingame_sleep_milliseconds;
+}
+
 DWORD GetMainMenuSleepMilliseconds() {
   static DWORD main_menu_milliseconds;
 
@@ -359,6 +401,23 @@ DWORD GetMainMenuSleepMilliseconds() {
   );
 
   return main_menu_milliseconds;
+}
+
+DWORD GetInactiveMainMenuSleepMilliseconds() {
+  static DWORD inactive_main_menu_milliseconds;
+
+  std::call_once(
+      GetOnceFlag(kMainEntryKey, kMainMenuSleepTimeKey),
+      [=] () {
+        inactive_main_menu_milliseconds = GetConfigReader()
+            .GetUnsignedLong(
+                kMainEntryKey,
+                kInactiveMainMenuSleepTimeKey
+            );
+      }
+  );
+
+  return inactive_main_menu_milliseconds;
 }
 
 } // namespace sgd2csp

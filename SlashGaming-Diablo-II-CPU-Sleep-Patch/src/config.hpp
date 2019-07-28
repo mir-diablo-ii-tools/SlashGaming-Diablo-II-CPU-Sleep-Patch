@@ -43,8 +43,8 @@
  *  work.
  */
 
-#ifndef SGD2CSP_CONFIG_READER_HPP_
-#define SGD2CSP_CONFIG_READER_HPP_
+#ifndef SGD2CSP_CONFIG_HPP_
+#define SGD2CSP_CONFIG_HPP_
 
 #include <windows.h>
 
@@ -53,11 +53,13 @@
 namespace sgd2csp {
 
 DWORD GetIngameSleepMilliseconds();
+DWORD GetInactiveIngameSleepMilliseconds();
 DWORD GetMainMenuSleepMilliseconds();
+DWORD GetInactiveMainMenuSleepMilliseconds();
 
 } // namespace sgd2csp
 
 extern "C" DLLEXPORT bool SGBH_RefreshConfig();
 
 #include "dllexport_undefine.inc"
-#endif // SGD2CSP_CONFIG_READER_HPP_
+#endif // SGD2CSP_CONFIG_HPP_
