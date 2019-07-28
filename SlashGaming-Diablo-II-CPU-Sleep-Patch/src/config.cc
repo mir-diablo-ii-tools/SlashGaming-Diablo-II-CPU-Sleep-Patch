@@ -75,7 +75,7 @@ constexpr int kMajorVersionAValue = 1;
 constexpr std::string_view kMajorVersionBKey = u8"Major Version B";
 constexpr int kMajorVersionBValue = 0;
 constexpr std::string_view kMinorVersionAKey = u8"Minor Version A";
-constexpr int kMinorVersionAValue = 0;
+constexpr int kMinorVersionAValue = 1;
 constexpr std::string_view kMinorVersionBKey = u8"Minor Version B";
 constexpr int kMinorVersionBValue = 0;
 
