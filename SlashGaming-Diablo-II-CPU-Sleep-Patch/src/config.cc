@@ -374,7 +374,7 @@ DWORD GetInactiveIngameSleepMilliseconds() {
   static DWORD inactive_ingame_sleep_milliseconds;
 
   std::call_once(
-      GetOnceFlag(kMainEntryKey, kIngameSleepTimeKey),
+      GetOnceFlag(kMainEntryKey, kInactiveIngameSleepTimeKey),
       [=] () {
         inactive_ingame_sleep_milliseconds = GetConfigReader()
             .GetUnsignedLong(
@@ -407,7 +407,7 @@ DWORD GetInactiveMainMenuSleepMilliseconds() {
   static DWORD inactive_main_menu_milliseconds;
 
   std::call_once(
-      GetOnceFlag(kMainEntryKey, kMainMenuSleepTimeKey),
+      GetOnceFlag(kMainEntryKey, kInactiveMainMenuSleepTimeKey),
       [=] () {
         inactive_main_menu_milliseconds = GetConfigReader()
             .GetUnsignedLong(
