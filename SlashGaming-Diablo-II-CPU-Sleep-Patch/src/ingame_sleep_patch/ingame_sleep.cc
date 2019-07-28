@@ -49,6 +49,7 @@
 
 #include "../asm_x86_macro.h"
 #include "../config.hpp"
+#include "../helper/is_window_active.hpp"
 
 namespace sgd2csp {
 
@@ -92,7 +93,11 @@ void SleepIngame() {
     Sleep(millis++ / 12);
   }
 
-  Sleep(GetIngameSleepMilliseconds());
+  if (IsWindowActive()) {
+    Sleep(GetIngameSleepMilliseconds());
+  } else {
+    Sleep(GetInactiveIngameSleepMilliseconds());
+  }
 #else
   int* next_checksum = new int[GetIngameSleepMilliseconds() * 1000];
   checksum = next_checksum[GetIngameSleepMilliseconds() / 2];
