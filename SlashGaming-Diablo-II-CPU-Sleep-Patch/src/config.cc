@@ -55,47 +55,47 @@
 namespace sgd2csp {
 namespace {
 
-const std::filesystem::path kConfigPath = u8"SlashGaming-Config.json";
+const std::filesystem::path kConfigPath = "SlashGaming-Config.json";
 
 // Global config entries.
-constexpr std::string_view kGlobalEntryKey = u8"!!!Globals!!!";
+constexpr std::string_view kGlobalEntryKey = "!!!Globals!!!";
 
-constexpr std::string_view kConfigTabWidthKey = u8"Config Tab Width";
+constexpr std::string_view kConfigTabWidthKey = "Config Tab Width";
 constexpr int kDefaultConfigTabWidth = 4;
 
 // Main config entries.
-constexpr std::string_view kMainEntryKey = u8"SlashGaming CPU Sleep Patch";
-constexpr std::string_view kMetaDataKey = u8"!!!Metadata (Do not modify)!!!";
+constexpr std::string_view kMainEntryKey = "SlashGaming CPU Sleep Patch";
+constexpr std::string_view kMetaDataKey = "!!!Metadata (Do not modify)!!!";
 
 // Note that this signifies the last version where the config formatting and
 // entries were updated. These values do not need to change with respect to API
 // file version!
-constexpr std::string_view kMajorVersionAKey = u8"Major Version A";
+constexpr std::string_view kMajorVersionAKey = "Major Version A";
 constexpr int kMajorVersionAValue = 1;
-constexpr std::string_view kMajorVersionBKey = u8"Major Version B";
+constexpr std::string_view kMajorVersionBKey = "Major Version B";
 constexpr int kMajorVersionBValue = 0;
-constexpr std::string_view kMinorVersionAKey = u8"Minor Version A";
+constexpr std::string_view kMinorVersionAKey = "Minor Version A";
 constexpr int kMinorVersionAValue = 1;
-constexpr std::string_view kMinorVersionBKey = u8"Minor Version B";
+constexpr std::string_view kMinorVersionBKey = "Minor Version B";
 constexpr int kMinorVersionBValue = 0;
 
 // Sleep time variables.
-constexpr std::string_view kIngameSleepTimeKey = u8"Ingame Sleep Time (ms)";
+constexpr std::string_view kIngameSleepTimeKey = "Ingame Sleep Time (ms)";
 constexpr DWORD kDefaultIngameSleepTime = 10;
 constexpr std::string_view kInactiveIngameSleepTimeKey =
-    u8"Inactive Ingame Sleep Time (ms)";
+    "Inactive Ingame Sleep Time (ms)";
 constexpr DWORD kDefaultInactiveIngameSleepTime = 100;
 constexpr std::string_view kMainMenuSleepTimeKey =
-    u8"Main Menu Sleep Time (ms)";
+    "Main Menu Sleep Time (ms)";
 constexpr DWORD kDefaultMainMenuSleepTime = 2;
 constexpr std::string_view kInactiveMainMenuSleepTimeKey =
-    u8"Inactive Main Menu Sleep Time (ms)";
+    "Inactive Main Menu Sleep Time (ms)";
 constexpr DWORD kDefaultInactiveMainMenuSleepTime = 100;
 
 std::map<std::string, std::once_flag> once_flags_by_json_keys;
 
 const std::filesystem::path& GetConfigPath() {
-  static std::filesystem::path kConfigPath = u8"SlashGaming-Config.json";
+  static std::filesystem::path kConfigPath = "SlashGaming-Config.json";
   return kConfigPath;
 }
 
